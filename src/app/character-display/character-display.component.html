@@ -1,0 +1,17 @@
+<div class="col-md-6 offset-md-3">
+    <form (ngSubmit) = "onSubmit()">
+        <br>
+        <div class="form-group">
+            <label>Search existing 3D image</label>
+            <input type="text" class="form-control" id = "name">
+        </div>
+        <br>
+        <button class="btn btn-success" type="submit">Search</button>
+    </form>
+</div>
+<br>
+<div style = "text-align:center;">
+    <canvas #canvas id="canvas" style="height: 50%; width: 50%;"></canvas>
+</div>
+
+

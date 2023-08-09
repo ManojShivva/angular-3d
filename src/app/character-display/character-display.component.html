@@ -3,7 +3,7 @@
         <br>
         <div class="form-group">
             <label>Search existing 3D image</label>
-            <input type="text" class="form-control" id = "name">
+            <input type="text" class="form-control" id = "name" (keyup)="onKey($event)">
         </div>
         <br>
         <button class="btn btn-success" type="submit">Search</button>

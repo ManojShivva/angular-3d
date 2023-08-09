@@ -1,2 +1,16 @@
-<h1 class="text-center"> {{title}} </h1>
-<app-character-display></app-character-display>
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a routerLink="upload" routerLinkActive="active" class="nav-link">Upload</a>
+        </li>
+        <li class="nav-item">
+            <a routerLink="display" routerLinkActive="active" class="nav-link">Display</a>
+        </li>
+    </ul>
+</nav>
+
+<h1 class="text-center">{{title}}</h1>
+<div class="container">
+    <router-outlet></router-outlet>
+</div>
+

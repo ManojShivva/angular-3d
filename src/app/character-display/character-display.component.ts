@@ -5,6 +5,7 @@ import { GLTFLoader, GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer.js';
 import { CharacterService } from '../character.service';
+import { HttpEvent } from '@angular/common/http';
 
 @Component({
   selector: 'app-character-display',
@@ -14,26 +15,62 @@ import { CharacterService } from '../character.service';
 export class CharacterDisplayComponent {
 
   character!: Character[];
-  refPathURL!: string;
+  httpEvent!: HttpEvent<any>;
+  refObject: any;
+  refPathURL1!: string;
+  object!: THREE.Object3D;
+  object1!: any;
+  values = '';
 
   constructor(private characterService: CharacterService) { }
 
 
-  private getCharacter(){
-    this.characterService.getCharacter().subscribe(data => {
-      this.character = data;
-      let pathURL = data[2].path;
-      let rem = /\\/gi;
-      let rePathURL = pathURL.replace(rem,"/");
-      this.refPathURL = rePathURL.substring(81);
-      console.log(this.refPathURL);
-    });
+  onKey(event: any) { // without type info
+    // this.values += event.target.value + ' | ';
+    this.values = event.target.value;
+    console.log(this.values);
   }
+
+  // private getCharacter(){
+  //   this.characterService.getCharacter().subscribe(data => {
+  //     this.character = data;
+  //     let pathURL = data[2].path;
+  //     let rem = /\\/gi;
+  //     let rePathURL = pathURL.replace(rem,"/");
+  //     this.refPathURL = rePathURL.substring(81);
+  //     console.log(this.refPathURL);
+  //   });
+  // }
 
 
   onSubmit(){
-    
+    this.getCharacter();
   }
+
+  private getCharacter(){
+    this.characterService.getCharacter(this.values).subscribe(data => {
+      this.character = data;
+      console.log(this.character[0].path);
+      this.refPathURL1 = this.character[0].path;
+      this.getImage();
+    });
+  }
+
+  private getImage(){
+    this.characterService.getImage(this.refPathURL1).subscribe(data => {
+      //this.object = data;
+      this.object1 = data;
+
+    })
+  }
+  // private getEmployees(){
+  //   this.employeeService.getEmployeesList().subscribe(data => {
+  //     this.employees = data;
+  //     console.log(this.employees[0].emailID);
+  //   });
+  // }
+
+
 
   @ViewChild('canvas') private canvasRef!: ElementRef;
 
@@ -119,8 +156,16 @@ export class CharacterDisplayComponent {
     this.scene.background = new THREE.Color(0xd4d4d8)
     //C:\Users\computer\Documents\angular
     //assets/robot/scene.gltf
-    this.loaderGLTF.load('assets/robot/scene.gltf', (gltf: GLTF) => {
-      console.log(this.refPathURL);
+    //http://localhost:8081/downloadFile/scene.gltf
+    // this.loaderGLTF.load('assets/robot/scene.gltf', (gltf: GLTF) => {
+    //   this.model = gltf.scene.children[0];
+    //   console.log(this.model);
+    //   var box = new THREE.Box3().setFromObject(this.model);
+    //   box.getCenter(this.model.position); // this re-sets the mesh position
+    //   this.model.position.multiplyScalar(-1);
+    //   this.scene.add(this.model);
+    // });
+    this.loaderGLTF.load(this.object1, (gltf: GLTF) => {
       this.model = gltf.scene.children[0];
       console.log(this.model);
       var box = new THREE.Box3().setFromObject(this.model);
@@ -183,10 +228,6 @@ export class CharacterDisplayComponent {
     }());
   }
 
-
-  ngOnInit(): void {
-    this.getCharacter()
-  }
 
   ngAfterViewInit() {
     this.createScene();

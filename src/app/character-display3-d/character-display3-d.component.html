@@ -2,21 +2,17 @@
     <form (ngSubmit) = "onSubmit()">
         <br>
         <div class="form-group">
-            <label>Search existing 2D image</label>
+            <label>Search existing 3D image</label>
             <input type="text" class="form-control" id = "name" (keyup)="onKey($event)">
         </div>
         <br>
         <button class="btn btn-success" type="submit">Search</button>
-        <p>{{message}}</p>
     </form>
 </div>
 <br>
-<!-- <div style = "text-align:center;">
-    <canvas #canvas id="canvas" style="height: 50%; width: 50%;"></canvas>
-</div> -->
-
 <div style = "text-align:center;">
-    <img [src]="refPathURL1"  alt="Plese choose the image" width="300" height="300" />
-  </div>
+    <canvas #canvas id="canvas" style="height: 50%; width: 50%;"></canvas>
+</div>
+
 
 

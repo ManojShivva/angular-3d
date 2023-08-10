@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import { CharacterDisplayComponent } from './character-display/character-display.component';
 import { FormsModule } from '@angular/forms';
 import { CharacterUploadComponent } from './character-upload/character-upload.component';
+import { CharacterDisplay3DComponent } from './character-display3-d/character-display3-d.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CharacterDisplayComponent,
-    CharacterUploadComponent
+    CharacterUploadComponent,
+    CharacterDisplay3DComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
